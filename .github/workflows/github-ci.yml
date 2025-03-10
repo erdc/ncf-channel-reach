@@ -94,17 +94,17 @@ jobs:
         if: (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch') && (env.BUMP_TYPE == 'minor' || env.BUMP_TYPE == 'major')
         run: |
           mkdir -p release
-          cp toolbox_script.py release/
+          cp NCFChangelog.py release/
           cp README.md release/
           cd release
-          zip -r ../toolbox_script_${{ env.NEW_VERSION }}.zip .
+          zip -r ../ncf-channel-reach_${{ env.NEW_VERSION }}.zip .
           cd ..
 
       - name: Create GitHub Release
         if: (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch') && (env.BUMP_TYPE == 'minor' || env.BUMP_TYPE == 'major')
         uses: softprops/action-gh-release@v1
         with:
-          files: toolbox_script_${{ env.NEW_VERSION }}.zip
+          files: ncf-channel-reach_${{ env.NEW_VERSION }}.zip
           tag_name: ${{ env.NEW_VERSION }}
           name: "Release ${{ env.NEW_VERSION }}"
           draft: false
